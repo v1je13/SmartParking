@@ -2,6 +2,8 @@ using Avalonia.Controls;
 using Microsoft.EntityFrameworkCore;
 using SmartParking.Data;
 using SmartParking.Models;
+using System;
+using System.Linq;
 
 namespace SmartParking.Views.Pages
 {
