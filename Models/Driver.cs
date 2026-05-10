@@ -1,5 +1,8 @@
 namespace SmartParking.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     // Водитель
     public class Driver
     {

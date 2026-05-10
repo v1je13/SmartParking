@@ -1,5 +1,8 @@
 namespace SmartParking.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     // Статус сессии парковки
     public enum SessionStatus
     {

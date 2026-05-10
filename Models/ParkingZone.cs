@@ -1,5 +1,7 @@
 namespace SmartParking.Models
 {
+    using System.Collections.Generic;
+
     // Парковочная зона
     public class ParkingZone
     {
