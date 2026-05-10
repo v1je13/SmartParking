@@ -5,11 +5,34 @@ obj/
 *.dll
 *.exe
 *.pdb
-*.nupkg
+*.so
+*.dylib
+*.jar
+*.war
+*.class
 
 # Dependencies
-packages/
 node_modules/
+packages/
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+*.userprefs
+*.suo
+*.user
+*.aps
+*.ncb
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
 
 # Logs
 *.log
@@ -19,30 +42,26 @@ node_modules/
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
-*.userprefs
-*.userosscache
-*.user
-*.suo
-*.userprefs
-
-# OS generated files
-.DS_Store
-Thumbs.db
-ehthumbs.db
-Icon?
-desktop.ini
+# Test and coverage
+coverage/
+htmlcov/
+.coverage
+*.coverage
 
 # Temporary files
 *.tmp
 *.temp
 *.bak
-*.cache
+*.backup
 
-# User-specific files
-.vs/
-*.user
-*.userosscache
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
 ```
