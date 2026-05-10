@@ -3,7 +3,7 @@
              x:Class="SmartParking.Views.Pages.ReportsPage">
 
     <ScrollViewer>
-        <StackPanel Spacing="20" Padding="0">
+        <StackPanel Spacing="20" Margin="0">
             <TextBlock Text="Отчёты" FontSize="26" FontWeight="Bold"
                        Foreground="#CDD6F4"/>
 
@@ -11,7 +11,7 @@
             <TabControl>
                 <!-- Свободные места -->
                 <TabItem Header="✅ Свободные места в зоне">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <StackPanel Orientation="Horizontal" Spacing="12">
                             <TextBlock Text="Выберите зону:" Foreground="#CDD6F4" VerticalAlignment="Center"/>
                             <ComboBox Name="CmbZone1" Width="250" Background="#313244" Foreground="#CDD6F4"
@@ -40,7 +40,7 @@
 
                 <!-- Какая машина на каком месте -->
                 <TabItem Header="🚗 Занятые места">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <Button Name="BtnRefreshReport2" Content="🔄 Обновить"
                                 Background="#45475A" Foreground="#CDD6F4" FontSize="11"
                                 Padding="12,8" CornerRadius="6" Cursor="Hand"
@@ -63,7 +63,7 @@
 
                 <!-- История парковок машины -->
                 <TabItem Header="📋 История машины">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <StackPanel Orientation="Horizontal" Spacing="12">
                             <TextBlock Text="Гос. номер:" Foreground="#CDD6F4" VerticalAlignment="Center"/>
                             <ComboBox Name="CmbVehicle" Width="200" Background="#313244" Foreground="#CDD6F4"
@@ -88,7 +88,7 @@
 
                 <!-- Должники -->
                 <TabItem Header="⚠️ Должники">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <TextBlock Name="TxtTotalDebt" Text="Общий долг: 0 руб." Foreground="#F38BA8" FontSize="14" FontWeight="Bold"/>
                         <DataGrid Name="GridReport4" AutoGenerateColumns="False" IsReadOnly="True"
                                   Background="Transparent" Foreground="#CDD6F4"
@@ -108,7 +108,7 @@
 
                 <!-- Загруженные зоны -->
                 <TabItem Header="📊 Загрузка зон">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <TextBlock Text="Зоны с загруженностью более 90%:" Foreground="#CDD6F4" FontSize="12" FontWeight="Bold"/>
                         <DataGrid Name="GridReport5" AutoGenerateColumns="False" IsReadOnly="True"
                                   Background="Transparent" Foreground="#CDD6F4"
@@ -126,7 +126,7 @@
 
                 <!-- Среднее время стоянки -->
                 <TabItem Header="⏱ Среднее время">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <DataGrid Name="GridReport6" AutoGenerateColumns="False" IsReadOnly="True"
                                   Background="Transparent" Foreground="#CDD6F4"
                                   GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
@@ -144,7 +144,7 @@
 
                 <!-- Выручка по зонам -->
                 <TabItem Header="💰 Выручка">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <TextBlock Name="TxtTotalRevenue" Text="Общая выручка: 0 руб." Foreground="#A6E3A1" FontSize="14" FontWeight="Bold"/>
                         <DataGrid Name="GridReport7" AutoGenerateColumns="False" IsReadOnly="True"
                                   Background="Transparent" Foreground="#CDD6F4"
@@ -162,7 +162,7 @@
 
                 <!-- Эвакуированные машины -->
                 <TabItem Header="🚔 Эвакуированные">
-                    <StackPanel Padding="16" Spacing="12">
+                    <StackPanel Margin="16" Spacing="12">
                         <TextBlock Name="TxtEvacuatedCount" Text="Всего эвакуировано: 0 шт." Foreground="#F38BA8" FontSize="14" FontWeight="Bold"/>
                         <DataGrid Name="GridReport8" AutoGenerateColumns="False" IsReadOnly="True"
                                   Background="Transparent" Foreground="#CDD6F4"
