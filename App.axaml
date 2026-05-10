@@ -5,6 +5,6 @@
     </Application.Resources>
 
     <Application.Styles>
-        <FluentTheme Mode="Dark" />
+        <FluentTheme />
     </Application.Styles>
 </Application>

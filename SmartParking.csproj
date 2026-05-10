@@ -3,7 +3,6 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <AvaloniaVersion>11.0</AvaloniaVersion>
         <UseCompiledBindingsByDefault>true</UseCompiledBindingsByDefault>
     </PropertyGroup>
 

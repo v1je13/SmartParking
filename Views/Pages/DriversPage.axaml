@@ -17,7 +17,7 @@
         <TabControl Grid.Row="1">
             <!-- Вкладка Водители -->
             <TabItem Header="👤 Водители">
-                <StackPanel Spacing="16" Padding="16">
+                <StackPanel Spacing="16" Margin="16">
                     <StackPanel Orientation="Horizontal" Spacing="12">
                         <Button Name="BtnEditDriver" Content="✏ Редактировать"
                                 Background="#45475A" Foreground="#CDD6F4" FontSize="12"
@@ -57,7 +57,7 @@
 
             <!-- Вкладка Машины -->
             <TabItem Header="🚗 Машины">
-                <StackPanel Spacing="16" Padding="16">
+                <StackPanel Spacing="16" Margin="16">
                     <StackPanel Orientation="Horizontal" Spacing="12">
                         <Button Name="BtnAddCar" Content="+ Добавить машину"
                                 Background="#89B4FA" Foreground="#1E1E2E" FontSize="12"
