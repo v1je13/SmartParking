@@ -1,5 +1,7 @@
 namespace SmartParking.Models
 {
+    using System.Collections.Generic;
+
     // Статусы парковочного места
     public enum SpotStatus
     {
