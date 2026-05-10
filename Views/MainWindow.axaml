@@ -1,0 +1,120 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SmartParking.Views.MainWindow"
+        Title="АСУ Умная парковка города"
+        Width="1200" Height="750"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E2E">
+
+    <Window.Styles>
+        <Style Selector="Button.nav-btn">
+            <Setter Property="Background" Value="#313244"/>
+            <Setter Property="Foreground" Value="#CDD6F4"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="210"/>
+        </Style>
+        <Style Selector="Button.nav-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#45475A"/>
+        </Style>
+        <Style Selector="Button.nav-btn.active">
+            <Setter Property="Background" Value="#89B4FA"/>
+            <Setter Property="Foreground" Value="#1E1E2E"/>
+        </Style>
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#CDD6F4"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Боковая панель -->
+        <Border Grid.Column="0" Background="#181825" Padding="12">
+            <StackPanel>
+                <!-- Лого -->
+                <Border Background="#313244" CornerRadius="10" Padding="12" Margin="0,0,0,24">
+                    <StackPanel>
+                        <TextBlock Text="🅿" FontSize="32" HorizontalAlignment="Center" Foreground="#89B4FA"/>
+                        <TextBlock Text="УМНАЯ ПАРКОВКА" FontSize="11" FontWeight="Bold"
+                                   Foreground="#89B4FA" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+                        <TextBlock Text="Система управления" FontSize="9"
+                                   Foreground="#6C7086" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Кнопки навигации -->
+                <Button Name="BtnDashboard" Classes="nav-btn" Click="BtnDashboard_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🏠" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Главная"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Name="BtnZones" Classes="nav-btn" Click="BtnZones_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📍" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Парковочные зоны"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Name="BtnSpots" Classes="nav-btn" Click="BtnSpots_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🅿" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Парковочные места"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Name="BtnDrivers" Classes="nav-btn" Click="BtnDrivers_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="👤" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Водители и машины"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Name="BtnSessions" Classes="nav-btn" Click="BtnSessions_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🚗" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Заезды / Выезды"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Name="BtnReports" Classes="nav-btn" Click="BtnReports_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="📊" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Отчёты"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Name="BtnPrint" Classes="nav-btn" Click="BtnPrint_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🖨" FontSize="16" Margin="0,0,10,0"/>
+                        <TextBlock Text="Печать квитанций"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Дата и время внизу -->
+                <StackPanel VerticalAlignment="Bottom" Margin="0,40,0,0">
+                    <TextBlock Name="TxtDateTime" Text="--:--" Foreground="#6C7086"
+                               FontSize="11" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Основной контент -->
+        <Border Grid.Column="1" Padding="24">
+            <ContentControl Name="MainContent"/>
+        </Border>
+    </Grid>
+</Window>

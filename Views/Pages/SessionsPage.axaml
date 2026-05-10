@@ -1,0 +1,155 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SmartParking.Views.Pages.SessionsPage">
+
+    <StackPanel Spacing="16">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <TextBlock Text="Заезды и выезды" FontSize="26" FontWeight="Bold"
+                       Foreground="#CDD6F4" VerticalAlignment="Center"/>
+            <Button Name="BtnNewSession" Content="+ Новая сессия" 
+                    Background="#89B4FA" Foreground="#1E1E2E" FontSize="13"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnNewSession_Click"/>
+        </StackPanel>
+
+        <!-- Фильтры -->
+        <StackPanel Orientation="Horizontal" Spacing="16">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Статус:" Foreground="#CDD6F4" VerticalAlignment="Center"/>
+                <ComboBox Name="CmbFilterStatus" Width="200" Background="#313244" Foreground="#CDD6F4"
+                          SelectionChanged="CmbFilterStatus_SelectionChanged">
+                    <ComboBoxItem>Все</ComboBoxItem>
+                    <ComboBoxItem>Active</ComboBoxItem>
+                    <ComboBoxItem>Completed</ComboBoxItem>
+                    <ComboBoxItem>Unpaid</ComboBoxItem>
+                    <ComboBoxItem>Fined</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Таблица сессий -->
+        <Border Background="#313244" CornerRadius="12" Padding="20">
+            <DataGrid Name="GridSessions"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="False"
+                      Background="Transparent"
+                      Foreground="#CDD6F4"
+                      GridLinesVisibility="Horizontal"
+                      BorderBrush="#45475A"
+                      BorderThickness="1"
+                      MaxHeight="400">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Гос. номер" Binding="{Binding Vehicle.LicensePlate}" Width="120"/>
+                    <DataGridTextColumn Header="Владелец" Binding="{Binding Vehicle.Driver.FullName}" Width="150"/>
+                    <DataGridTextColumn Header="Зона" Binding="{Binding Spot.Zone.Name}" Width="120"/>
+                    <DataGridTextColumn Header="Место" Binding="{Binding Spot.SpotNumber}" Width="80"/>
+                    <DataGridTextColumn Header="Въезд" Binding="{Binding EntryTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                    <DataGridTextColumn Header="Выезд" Binding="{Binding ExitTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                    <DataGridTextColumn Header="К оплате" Binding="{Binding AmountDue, StringFormat='F2'}" Width="100"/>
+                    <DataGridTextColumn Header="Оплачено" Binding="{Binding AmountPaid, StringFormat='F2'}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Кнопки действий -->
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <Button Name="BtnEditSession" Content="✏ Редактировать"
+                    Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnEditSession_Click"/>
+            <Button Name="BtnMarkExit" Content="🚗 Выезд"
+                    Background="#A6E3A1" Foreground="#1E1E2E" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnMarkExit_Click"/>
+            <Button Name="BtnMarkPaid" Content="💰 Оплачено"
+                    Background="#A6E3A1" Foreground="#1E1E2E" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnMarkPaid_Click"/>
+            <Button Name="BtnAddFine" Content="⚠️ Штраф"
+                    Background="#FAB387" Foreground="#1E1E2E" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnAddFine_Click"/>
+            <Button Name="BtnEvacuate" Content="🚔 Эвакуировать"
+                    Background="#F38BA8" Foreground="#1E1E2E" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnEvacuate_Click"/>
+            <Button Name="BtnRefresh" Content="🔄 Обновить"
+                    Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnRefresh_Click"/>
+        </StackPanel>
+
+        <!-- Форма редактирования -->
+        <Border Background="#313244" CornerRadius="12" Padding="20">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Редактировать сессию" FontSize="14" FontWeight="Bold"
+                           Foreground="#CDD6F4"/>
+
+                <Grid ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto">
+                    <!-- Машина -->
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Гос. номер:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <ComboBox Name="CmbVehicle" Grid.Column="1" Grid.Row="0"
+                              Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                              CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <!-- Место -->
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Место:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <ComboBox Name="CmbSpot" Grid.Column="3" Grid.Row="0"
+                              Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                              CornerRadius="4"/>
+
+                    <!-- Время заезда -->
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Время заезда:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtEntryTime" Grid.Column="1" Grid.Row="1"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <!-- Время выезда -->
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Время выезда:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtExitTime" Grid.Column="3" Grid.Row="1"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4"/>
+
+                    <!-- Сумма к оплате -->
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="К оплате (руб):" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <NumericUpDown Name="TxtAmountDue" Grid.Column="1" Grid.Row="2"
+                                   Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                                   CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <!-- Статус -->
+                    <TextBlock Grid.Column="2" Grid.Row="2" Text="Статус:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <ComboBox Name="CmbSessionStatus" Grid.Column="3" Grid.Row="2"
+                              Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                              CornerRadius="4">
+                        <ComboBoxItem>Active</ComboBoxItem>
+                        <ComboBoxItem>Completed</ComboBoxItem>
+                        <ComboBoxItem>Unpaid</ComboBoxItem>
+                        <ComboBoxItem>Fined</ComboBoxItem>
+                        <ComboBoxItem>Evacuated</ComboBoxItem>
+                    </ComboBox>
+
+                    <!-- Кнопки -->
+                    <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4"
+                                Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Margin="0,8,0,0">
+                        <Button Name="BtnSaveSession" Content="💾 Сохранить"
+                                Background="#A6E3A1" Foreground="#1E1E2E" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnSaveSession_Click"/>
+                        <Button Name="BtnCancelEdit" Content="✕ Отмена"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnCancelEdit_Click"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

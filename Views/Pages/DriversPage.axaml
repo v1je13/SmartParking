@@ -1,0 +1,170 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SmartParking.Views.Pages.DriversPage">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Кнопки -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="12" Margin="0,0,0,16">
+            <TextBlock Text="Водители и машины" FontSize="26" FontWeight="Bold"
+                       Foreground="#CDD6F4" VerticalAlignment="Center"/>
+            <Button Name="BtnAddDriver" Content="+ Добавить водителя" 
+                    Background="#89B4FA" Foreground="#1E1E2E" FontSize="13"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnAddDriver_Click"/>
+        </StackPanel>
+
+        <!-- TabControl для двух таблиц -->
+        <TabControl Grid.Row="1">
+            <!-- Вкладка Водители -->
+            <TabItem Header="👤 Водители">
+                <StackPanel Spacing="16" Padding="16">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Name="BtnEditDriver" Content="✏ Редактировать"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnEditDriver_Click"/>
+                        <Button Name="BtnDeleteDriver" Content="🗑 Удалить"
+                                Background="#F38BA8" Foreground="#1E1E2E" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnDeleteDriver_Click"/>
+                        <Button Name="BtnRefreshDrivers" Content="🔄 Обновить"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnRefreshDrivers_Click"/>
+                    </StackPanel>
+
+                    <DataGrid Name="GridDrivers"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="False"
+                              Background="Transparent"
+                              Foreground="#CDD6F4"
+                              GridLinesVisibility="Horizontal"
+                              BorderBrush="#45475A"
+                              BorderThickness="1"
+                              MaxHeight="400">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="180"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="140"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="160"/>
+                            <DataGridTextColumn Header="Водительское" Binding="{Binding DriverLicense}" Width="140"/>
+                            <DataGridTextColumn Header="Зарегистрирован" Binding="{Binding RegisteredAt, StringFormat='dd.MM.yyyy'}" Width="120"/>
+                            <DataGridTextColumn Header="Долг" Binding="{Binding HasDebt}" Width="60"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Вкладка Машины -->
+            <TabItem Header="🚗 Машины">
+                <StackPanel Spacing="16" Padding="16">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Name="BtnAddCar" Content="+ Добавить машину"
+                                Background="#89B4FA" Foreground="#1E1E2E" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnAddCar_Click"/>
+                        <Button Name="BtnEditCar" Content="✏ Редактировать"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnEditCar_Click"/>
+                        <Button Name="BtnDeleteCar" Content="🗑 Удалить"
+                                Background="#F38BA8" Foreground="#1E1E2E" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnDeleteCar_Click"/>
+                        <Button Name="BtnRefreshCars" Content="🔄 Обновить"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnRefreshCars_Click"/>
+                    </StackPanel>
+
+                    <DataGrid Name="GridVehicles"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="False"
+                              Background="Transparent"
+                              Foreground="#CDD6F4"
+                              GridLinesVisibility="Horizontal"
+                              BorderBrush="#45475A"
+                              BorderThickness="1"
+                              MaxHeight="400">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Гос. номер" Binding="{Binding LicensePlate}" Width="120"/>
+                            <DataGridTextColumn Header="Марка" Binding="{Binding Brand}" Width="100"/>
+                            <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="100"/>
+                            <DataGridTextColumn Header="Цвет" Binding="{Binding Color}" Width="100"/>
+                            <DataGridTextColumn Header="Год" Binding="{Binding Year}" Width="60"/>
+                            <DataGridTextColumn Header="Тип" Binding="{Binding VehicleType}" Width="120"/>
+                            <DataGridTextColumn Header="Владелец" Binding="{Binding Driver.FullName}" Width="180"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <!-- Форма редактирования -->
+        <Border Grid.Row="2" Background="#313244" CornerRadius="12" Padding="20" Margin="0,16,0,0">
+            <Grid RowDefinitions="Auto,Auto">
+                <TextBlock Grid.Row="0" Text="Редактировать" FontSize="14" FontWeight="Bold"
+                           Foreground="#CDD6F4" Margin="0,0,0,12"/>
+
+                <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto,Auto">
+                    <!-- Водитель -->
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Фамилия:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtLastName" Grid.Column="1" Grid.Row="0"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Имя:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtFirstName" Grid.Column="3" Grid.Row="0"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Отчество:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtMiddleName" Grid.Column="1" Grid.Row="1"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Телефон:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtPhone" Grid.Column="3" Grid.Row="1"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Watermark="+7 (999) 123-45-67"/>
+
+                    <!-- Машина -->
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Гос. номер:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtLicensePlate" Grid.Column="1" Grid.Row="2"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Margin="0,0,24,0" Watermark="А123БВ77"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="2" Text="Марка/Модель:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <StackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal" Spacing="4">
+                        <TextBox Name="TxtBrand" Width="80"
+                                 Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                                 CornerRadius="4" Watermark="Марка"/>
+                        <TextBox Name="TxtModel" Width="80"
+                                 Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                                 CornerRadius="4" Watermark="Модель"/>
+                    </StackPanel>
+
+                    <!-- Кнопки -->
+                    <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4"
+                                Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Margin="0,8,0,0">
+                        <Button Name="BtnSaveDriver" Content="💾 Сохранить"
+                                Background="#A6E3A1" Foreground="#1E1E2E" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnSaveDriver_Click"/>
+                        <Button Name="BtnCancelEdit" Content="✕ Отмена"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnCancelEdit_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

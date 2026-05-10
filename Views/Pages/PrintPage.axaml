@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SmartParking.Views.Pages.PrintPage">
+
+    <StackPanel Spacing="16">
+        <TextBlock Text="Печать квитанций" FontSize="26" FontWeight="Bold"
+                   Foreground="#CDD6F4"/>
+
+        <TextBlock Text="Выберите сессию парковки для печати квитанции:" Foreground="#CDD6F4" FontSize="12"/>
+
+        <!-- Фильтр по зонам -->
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <TextBlock Text="Статус:" Foreground="#CDD6F4" VerticalAlignment="Center"/>
+            <ComboBox Name="CmbFilterStatus" Width="200" Background="#313244" Foreground="#CDD6F4"
+                      SelectionChanged="CmbFilterStatus_SelectionChanged">
+                <ComboBoxItem>Все</ComboBoxItem>
+                <ComboBoxItem>Completed</ComboBoxItem>
+                <ComboBoxItem>Unpaid</ComboBoxItem>
+                <ComboBoxItem>Fined</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Таблица сессий -->
+        <Border Background="#313244" CornerRadius="12" Padding="20">
+            <DataGrid Name="GridSessions"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Background="Transparent"
+                      Foreground="#CDD6F4"
+                      GridLinesVisibility="Horizontal"
+                      BorderBrush="#45475A"
+                      BorderThickness="1"
+                      MaxHeight="400">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Гос. номер" Binding="{Binding Vehicle.LicensePlate}" Width="120"/>
+                    <DataGridTextColumn Header="Владелец" Binding="{Binding Vehicle.Driver.FullName}" Width="150"/>
+                    <DataGridTextColumn Header="Зона" Binding="{Binding Spot.Zone.Name}" Width="120"/>
+                    <DataGridTextColumn Header="Въезд" Binding="{Binding EntryTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                    <DataGridTextColumn Header="Выезд" Binding="{Binding ExitTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                    <DataGridTextColumn Header="К оплате" Binding="{Binding AmountDue, StringFormat='F2'}" Width="100"/>
+                    <DataGridTextColumn Header="Оплачено" Binding="{Binding AmountPaid, StringFormat='F2'}" Width="100"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Кнопки действий -->
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <Button Name="BtnPreview" Content="👁 Просмотр"
+                    Background="#89B4FA" Foreground="#1E1E2E" FontSize="12"
+                    Padding="16,10" CornerRadius="6" Cursor="Hand"
+                    Click="BtnPreview_Click"/>
+            <Button Name="BtnPrint" Content="🖨 Печать"
+                    Background="#A6E3A1" Foreground="#1E1E2E" FontSize="12"
+                    Padding="16,10" CornerRadius="6" Cursor="Hand"
+                    Click="BtnPrint_Click"/>
+            <Button Name="BtnRefresh" Content="🔄 Обновить"
+                    Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                    Padding="16,10" CornerRadius="6" Cursor="Hand"
+                    Click="BtnRefresh_Click"/>
+        </StackPanel>
+
+        <!-- Информация о выбранной сессии -->
+        <Border Background="#313244" CornerRadius="12" Padding="20">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Информация о квитанции" FontSize="14" FontWeight="Bold"
+                           Foreground="#CDD6F4"/>
+
+                <Grid ColumnDefinitions="200,*,200,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                    <!-- Водитель и машина -->
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Гос. номер:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" Name="TxtPlate"
+                               Foreground="#CDD6F4" FontSize="11" FontWeight="Bold"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Владелец:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="3" Grid.Row="0" Name="TxtOwner"
+                               Foreground="#CDD6F4" FontSize="11" FontWeight="Bold"/>
+
+                    <!-- Парковка -->
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Зона:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Name="TxtZone"
+                               Foreground="#CDD6F4" FontSize="11"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Место:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="3" Grid.Row="1" Name="TxtSpot"
+                               Foreground="#CDD6F4" FontSize="11"/>
+
+                    <!-- Время -->
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Въезд:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="1" Grid.Row="2" Name="TxtEntry"
+                               Foreground="#CDD6F4" FontSize="11"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="2" Text="Выезд:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="3" Grid.Row="2" Name="TxtExit"
+                               Foreground="#CDD6F4" FontSize="11"/>
+
+                    <!-- Время стоянки -->
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Время стоянки:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="1" Grid.Row="3" Name="TxtHours"
+                               Foreground="#CDD6F4" FontSize="11"/>
+
+                    <!-- Сумма -->
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="К оплате:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="1" Grid.Row="4" Name="TxtAmountDue"
+                               Foreground="#CDD6F4" FontSize="11" FontWeight="Bold"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="4" Text="Штраф:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="3" Grid.Row="4" Name="TxtFine"
+                               Foreground="#CDD6F4" FontSize="11"/>
+
+                    <!-- Итого -->
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="ИТОГО:" 
+                               Foreground="#F38BA8" FontSize="12" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" Grid.Row="5" Name="TxtTotal"
+                               Foreground="#F38BA8" FontSize="12" FontWeight="Bold"/>
+
+                    <TextBlock Grid.Column="2" Grid.Row="5" Text="Статус:" 
+                               Foreground="#6C7086" FontSize="11"/>
+                    <TextBlock Grid.Column="3" Grid.Row="5" Name="TxtStatus"
+                               Foreground="#CDD6F4" FontSize="11" FontWeight="Bold"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

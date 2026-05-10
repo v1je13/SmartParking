@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SmartParking.Views.Pages.DashboardPage">
+
+    <ScrollViewer>
+        <StackPanel Spacing="20">
+
+            <TextBlock Text="Панель управления" FontSize="26" FontWeight="Bold"
+                       Foreground="#CDD6F4"/>
+
+            <!-- Карточки со статистикой -->
+            <WrapPanel Orientation="Horizontal">
+
+                <!-- Всего мест -->
+                <Border Background="#313244" CornerRadius="12" Padding="20" Margin="0,0,12,12" Width="220">
+                    <StackPanel>
+                        <TextBlock Text="📊 Всего мест" Foreground="#6C7086" FontSize="12"/>
+                        <TextBlock Name="TxtTotalSpots" Text="0" FontSize="36" FontWeight="Bold"
+                                   Foreground="#89B4FA" Margin="0,8,0,4"/>
+                        <TextBlock Text="парковочных мест" Foreground="#6C7086" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Свободно -->
+                <Border Background="#313244" CornerRadius="12" Padding="20" Margin="0,0,12,12" Width="220">
+                    <StackPanel>
+                        <TextBlock Text="✅ Свободно" Foreground="#6C7086" FontSize="12"/>
+                        <TextBlock Name="TxtFreeSpots" Text="0" FontSize="36" FontWeight="Bold"
+                                   Foreground="#A6E3A1" Margin="0,8,0,4"/>
+                        <TextBlock Text="мест свободно" Foreground="#6C7086" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Занято -->
+                <Border Background="#313244" CornerRadius="12" Padding="20" Margin="0,0,12,12" Width="220">
+                    <StackPanel>
+                        <TextBlock Text="🚗 Занято" Foreground="#6C7086" FontSize="12"/>
+                        <TextBlock Name="TxtOccupiedSpots" Text="0" FontSize="36" FontWeight="Bold"
+                                   Foreground="#FAB387" Margin="0,8,0,4"/>
+                        <TextBlock Text="мест занято" Foreground="#6C7086" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Ремонт -->
+                <Border Background="#313244" CornerRadius="12" Padding="20" Margin="0,0,12,12" Width="220">
+                    <StackPanel>
+                        <TextBlock Text="🔧 На ремонте" Foreground="#6C7086" FontSize="12"/>
+                        <TextBlock Name="TxtRepairSpots" Text="0" FontSize="36" FontWeight="Bold"
+                                   Foreground="#F38BA8" Margin="0,8,0,4"/>
+                        <TextBlock Text="мест на ремонте" Foreground="#6C7086" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Водители -->
+                <Border Background="#313244" CornerRadius="12" Padding="20" Margin="0,0,12,12" Width="220">
+                    <StackPanel>
+                        <TextBlock Text="👥 Водители" Foreground="#6C7086" FontSize="12"/>
+                        <TextBlock Name="TxtDriversCount" Text="0" FontSize="36" FontWeight="Bold"
+                                   Foreground="#CBA6F7" Margin="0,8,0,4"/>
+                        <TextBlock Text="зарегистрировано" Foreground="#6C7086" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Должники -->
+                <Border Background="#313244" CornerRadius="12" Padding="20" Margin="0,0,12,12" Width="220">
+                    <StackPanel>
+                        <TextBlock Text="⚠️ Должники" Foreground="#6C7086" FontSize="12"/>
+                        <TextBlock Name="TxtDebtors" Text="0" FontSize="36" FontWeight="Bold"
+                                   Foreground="#F38BA8" Margin="0,8,0,4"/>
+                        <TextBlock Text="неоплаченных сессий" Foreground="#6C7086" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+            </WrapPanel>
+
+            <!-- Активные сессии -->
+            <Border Background="#313244" CornerRadius="12" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="Текущие активные парковки" FontSize="16" FontWeight="SemiBold"
+                               Foreground="#CDD6F4" Margin="0,0,0,12"/>
+                    <DataGrid Name="GridActiveSessions"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              Background="Transparent"
+                              Foreground="#CDD6F4"
+                              GridLinesVisibility="Horizontal"
+                              BorderBrush="#45475A"
+                              BorderThickness="1"
+                              MaxHeight="300">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Гос. номер" Binding="{Binding Vehicle.LicensePlate}" Width="120"/>
+                            <DataGridTextColumn Header="Марка/Модель" Binding="{Binding VehicleInfo}" Width="150"/>
+                            <DataGridTextColumn Header="Владелец" Binding="{Binding OwnerName}" Width="180"/>
+                            <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="140"/>
+                            <DataGridTextColumn Header="Место" Binding="{Binding Spot.SpotNumber}" Width="80"/>
+                            <DataGridTextColumn Header="Въезд" Binding="{Binding EntryTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                            <DataGridTextColumn Header="Время (ч.)" Binding="{Binding HoursParked}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

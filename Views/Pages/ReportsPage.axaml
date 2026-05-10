@@ -1,0 +1,184 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SmartParking.Views.Pages.ReportsPage">
+
+    <ScrollViewer>
+        <StackPanel Spacing="20" Padding="0">
+            <TextBlock Text="Отчёты" FontSize="26" FontWeight="Bold"
+                       Foreground="#CDD6F4"/>
+
+            <!-- TabControl с разными отчётами -->
+            <TabControl>
+                <!-- Свободные места -->
+                <TabItem Header="✅ Свободные места в зоне">
+                    <StackPanel Padding="16" Spacing="12">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBlock Text="Выберите зону:" Foreground="#CDD6F4" VerticalAlignment="Center"/>
+                            <ComboBox Name="CmbZone1" Width="250" Background="#313244" Foreground="#CDD6F4"
+                                      SelectionChanged="CmbZone1_SelectionChanged">
+                                <ComboBoxItem>Все зоны</ComboBoxItem>
+                            </ComboBox>
+                            <Button Name="BtnExportReport1" Content="💾 Экспорт"
+                                    Background="#45475A" Foreground="#CDD6F4" FontSize="11"
+                                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                    Click="BtnExportReport1_Click"/>
+                        </StackPanel>
+                        <DataGrid Name="GridReport1" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="150"/>
+                                <DataGridTextColumn Header="Свободно" Binding="{Binding FreeSpots}" Width="100"/>
+                                <DataGridTextColumn Header="Занято" Binding="{Binding OccupiedSpots}" Width="100"/>
+                                <DataGridTextColumn Header="На ремонте" Binding="{Binding RepairSpots}" Width="100"/>
+                                <DataGridTextColumn Header="% загрузки" Binding="{Binding LoadPercent, StringFormat='F1'}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Какая машина на каком месте -->
+                <TabItem Header="🚗 Занятые места">
+                    <StackPanel Padding="16" Spacing="12">
+                        <Button Name="BtnRefreshReport2" Content="🔄 Обновить"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="11"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnRefreshReport2_Click"/>
+                        <DataGrid Name="GridReport2" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="120"/>
+                                <DataGridTextColumn Header="Место" Binding="{Binding SpotNumber}" Width="80"/>
+                                <DataGridTextColumn Header="Гос. номер" Binding="{Binding LicensePlate}" Width="120"/>
+                                <DataGridTextColumn Header="Владелец" Binding="{Binding OwnerName}" Width="150"/>
+                                <DataGridTextColumn Header="Стоит с" Binding="{Binding EntryTime, StringFormat='dd.MM HH:mm'}" Width="130"/>
+                                <DataGridTextColumn Header="Время (ч.)" Binding="{Binding Hours, StringFormat='F1'}" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- История парковок машины -->
+                <TabItem Header="📋 История машины">
+                    <StackPanel Padding="16" Spacing="12">
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBlock Text="Гос. номер:" Foreground="#CDD6F4" VerticalAlignment="Center"/>
+                            <ComboBox Name="CmbVehicle" Width="200" Background="#313244" Foreground="#CDD6F4"
+                                      SelectionChanged="CmbVehicle_SelectionChanged"/>
+                        </StackPanel>
+                        <DataGrid Name="GridReport3" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="120"/>
+                                <DataGridTextColumn Header="Место" Binding="{Binding SpotNumber}" Width="80"/>
+                                <DataGridTextColumn Header="Въезд" Binding="{Binding EntryTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                                <DataGridTextColumn Header="Выезд" Binding="{Binding ExitTime, StringFormat='dd.MM.yyyy HH:mm'}" Width="140"/>
+                                <DataGridTextColumn Header="Часов" Binding="{Binding Hours, StringFormat='F2'}" Width="80"/>
+                                <DataGridTextColumn Header="Сумма" Binding="{Binding Amount, StringFormat='F2'}" Width="80"/>
+                                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Должники -->
+                <TabItem Header="⚠️ Должники">
+                    <StackPanel Padding="16" Spacing="12">
+                        <TextBlock Name="TxtTotalDebt" Text="Общий долг: 0 руб." Foreground="#F38BA8" FontSize="14" FontWeight="Bold"/>
+                        <DataGrid Name="GridReport4" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Гос. номер" Binding="{Binding LicensePlate}" Width="120"/>
+                                <DataGridTextColumn Header="Владелец" Binding="{Binding OwnerName}" Width="150"/>
+                                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="140"/>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="120"/>
+                                <DataGridTextColumn Header="Без оплаты с" Binding="{Binding ExitTime, StringFormat='dd.MM.yyyy'}" Width="120"/>
+                                <DataGridTextColumn Header="Сумма долга" Binding="{Binding Amount, StringFormat='F2'}" Width="120"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Загруженные зоны -->
+                <TabItem Header="📊 Загрузка зон">
+                    <StackPanel Padding="16" Spacing="12">
+                        <TextBlock Text="Зоны с загруженностью более 90%:" Foreground="#CDD6F4" FontSize="12" FontWeight="Bold"/>
+                        <DataGrid Name="GridReport5" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="150"/>
+                                <DataGridTextColumn Header="Всего мест" Binding="{Binding TotalSpots}" Width="100"/>
+                                <DataGridTextColumn Header="Занято" Binding="{Binding OccupiedSpots}" Width="100"/>
+                                <DataGridTextColumn Header="% загрузки" Binding="{Binding LoadPercent, StringFormat='F1'}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Среднее время стоянки -->
+                <TabItem Header="⏱ Среднее время">
+                    <StackPanel Padding="16" Spacing="12">
+                        <DataGrid Name="GridReport6" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="150"/>
+                                <DataGridTextColumn Header="Парковок" Binding="{Binding SessionCount}" Width="100"/>
+                                <DataGridTextColumn Header="Среднее время (ч.)" Binding="{Binding AvgHours, StringFormat='F2'}" Width="150"/>
+                                <DataGridTextColumn Header="Мин" Binding="{Binding MinHours, StringFormat='F2'}" Width="80"/>
+                                <DataGridTextColumn Header="Макс" Binding="{Binding MaxHours, StringFormat='F2'}" Width="80"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Выручка по зонам -->
+                <TabItem Header="💰 Выручка">
+                    <StackPanel Padding="16" Spacing="12">
+                        <TextBlock Name="TxtTotalRevenue" Text="Общая выручка: 0 руб." Foreground="#A6E3A1" FontSize="14" FontWeight="Bold"/>
+                        <DataGrid Name="GridReport7" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="150"/>
+                                <DataGridTextColumn Header="Оплачено парковок" Binding="{Binding PaidSessions}" Width="130"/>
+                                <DataGridTextColumn Header="Выручка (руб)" Binding="{Binding Revenue, StringFormat='F2'}" Width="120"/>
+                                <DataGridTextColumn Header="Премиум (%) от всех" Binding="{Binding Percent, StringFormat='F1'}" Width="120"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+
+                <!-- Эвакуированные машины -->
+                <TabItem Header="🚔 Эвакуированные">
+                    <StackPanel Padding="16" Spacing="12">
+                        <TextBlock Name="TxtEvacuatedCount" Text="Всего эвакуировано: 0 шт." Foreground="#F38BA8" FontSize="14" FontWeight="Bold"/>
+                        <DataGrid Name="GridReport8" AutoGenerateColumns="False" IsReadOnly="True"
+                                  Background="Transparent" Foreground="#CDD6F4"
+                                  GridLinesVisibility="Horizontal" BorderBrush="#45475A" BorderThickness="1"
+                                  MaxHeight="400">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Гос. номер" Binding="{Binding LicensePlate}" Width="120"/>
+                                <DataGridTextColumn Header="Владелец" Binding="{Binding OwnerName}" Width="150"/>
+                                <DataGridTextColumn Header="Зона" Binding="{Binding ZoneName}" Width="120"/>
+                                <DataGridTextColumn Header="Дата эвакуации" Binding="{Binding EvacuatedAt, StringFormat='dd.MM.yyyy HH:mm'}" Width="150"/>
+                                <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

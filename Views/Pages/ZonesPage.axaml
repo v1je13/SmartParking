@@ -1,0 +1,131 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SmartParking.Views.Pages.ZonesPage">
+
+    <StackPanel Spacing="16">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <TextBlock Text="Парковочные зоны" FontSize="26" FontWeight="Bold"
+                       Foreground="#CDD6F4" VerticalAlignment="Center"/>
+            <Button Name="BtnAddZone" Content="+ Добавить зону" 
+                    Background="#89B4FA" Foreground="#1E1E2E" FontSize="13"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnAddZone_Click"/>
+        </StackPanel>
+
+        <!-- Таблица зон -->
+        <Border Background="#313244" CornerRadius="12" Padding="20">
+            <DataGrid Name="GridZones"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="False"
+                      Background="Transparent"
+                      Foreground="#CDD6F4"
+                      GridLinesVisibility="Horizontal"
+                      BorderBrush="#45475A"
+                      BorderThickness="1"
+                      MaxHeight="500">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="150"/>
+                    <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" Width="200"/>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding ZoneType}" Width="100"/>
+                    <DataGridTextColumn Header="Всего мест" Binding="{Binding TotalSpots}" Width="100"/>
+                    <DataGridTextColumn Header="Цена/час" Binding="{Binding PricePerHour}" Width="100"/>
+                    <DataGridTextColumn Header="Режим работы" Binding="{Binding WorkingHours}" Width="120"/>
+                    <DataGridTextColumn Header="Активна" Binding="{Binding IsActive}" Width="80"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <!-- Кнопки действий -->
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <Button Name="BtnEditZone" Content="✏ Редактировать"
+                    Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnEditZone_Click"/>
+            <Button Name="BtnDeleteZone" Content="🗑 Удалить"
+                    Background="#F38BA8" Foreground="#1E1E2E" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnDeleteZone_Click"/>
+            <Button Name="BtnRefresh" Content="🔄 Обновить"
+                    Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                    Padding="12,8" CornerRadius="6" Cursor="Hand"
+                    Click="BtnRefresh_Click"/>
+        </StackPanel>
+
+        <!-- Форма для добавления/редактирования -->
+        <Border Background="#313244" CornerRadius="12" Padding="20">
+            <StackPanel Spacing="12">
+                <TextBlock Text="Редактировать зону" FontSize="14" FontWeight="Bold"
+                           Foreground="#CDD6F4"/>
+
+                <Grid ColumnDefinitions="Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                    <!-- Название -->
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Название:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtZoneName" Grid.Column="1" Grid.Row="0"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <!-- Адрес -->
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="Адрес:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtZoneAddress" Grid.Column="3" Grid.Row="0"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4"/>
+
+                    <!-- Тип -->
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Тип зоны:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <ComboBox Name="CmbZoneType" Grid.Column="1" Grid.Row="1"
+                              Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                              CornerRadius="4" Margin="0,0,24,0">
+                        <ComboBoxItem>Платная</ComboBoxItem>
+                        <ComboBoxItem>Бесплатная</ComboBoxItem>
+                        <ComboBoxItem>Подземная</ComboBoxItem>
+                        <ComboBoxItem>Крытая</ComboBoxItem>
+                    </ComboBox>
+
+                    <!-- Всего мест -->
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="Всего мест:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <NumericUpDown Name="TxtTotalSpots" Grid.Column="3" Grid.Row="1"
+                                   Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                                   CornerRadius="4"/>
+
+                    <!-- Цена за час -->
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Цена/час (руб):" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <NumericUpDown Name="TxtPricePerHour" Grid.Column="1" Grid.Row="2"
+                                   Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                                   CornerRadius="4" Margin="0,0,24,0"/>
+
+                    <!-- Режим работы -->
+                    <TextBlock Grid.Column="2" Grid.Row="2" Text="Режим работы:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <TextBox Name="TxtWorkingHours" Grid.Column="3" Grid.Row="2"
+                             Background="#1E1E2E" Foreground="#CDD6F4" Padding="8"
+                             CornerRadius="4" Watermark="08:00-22:00"/>
+
+                    <!-- Активна -->
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Активна:" 
+                               Foreground="#CDD6F4" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <CheckBox Name="ChkIsActive" Grid.Column="1" Grid.Row="3"
+                              Foreground="#CDD6F4" IsChecked="True"/>
+
+                    <!-- Кнопки -->
+                    <StackPanel Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"
+                                Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                        <Button Name="BtnSaveZone" Content="💾 Сохранить"
+                                Background="#A6E3A1" Foreground="#1E1E2E" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnSaveZone_Click"/>
+                        <Button Name="BtnCancelEdit" Content="✕ Отмена"
+                                Background="#45475A" Foreground="#CDD6F4" FontSize="12"
+                                Padding="12,8" CornerRadius="6" Cursor="Hand"
+                                Click="BtnCancelEdit_Click"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>
