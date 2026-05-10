@@ -1,93 +1,48 @@
+```
 # Build artifacts
 bin/
 obj/
 *.dll
 *.exe
 *.pdb
-*.so
-*.dylib
 *.nupkg
 
 # Dependencies
 packages/
 node_modules/
-vendor/
 
 # Logs
 *.log
 
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# Environment specific
+# Environment
 .env
 .env.local
 *.env.*
 
-# IDE files
+# Editors
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# Testing
-coverage/
-htmlcov/
-*.coverage
-
-# Distribution / packaging
-dist/
-build/
-*.tar.gz
-*.zip
-
-# Compiled Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Java
-*.class
-*.jar
-*.war
-target/
-.gradle/
-
-# C#
+*.userprefs
+*.userosscache
 *.user
 *.suo
-*.userosscache
-*.sln.docstates
+*.userprefs
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
 
 # Temporary files
 *.tmp
 *.temp
 *.bak
+*.cache
 
-# Cache directories
-.cache/
-.mypy_cache/
-.pytest_cache/
-.npm
-.yarn
-
-# Compressed files
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
+# User-specific files
+.vs/
+*.user
+*.userosscache
+```

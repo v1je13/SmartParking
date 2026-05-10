@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Threading;
 using SmartParking.Data;
 using SmartParking.Views.Pages;
+using System;
 
 namespace SmartParking.Views
 {
