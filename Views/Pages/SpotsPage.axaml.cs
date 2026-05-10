@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartParking.Data;
 using SmartParking.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SmartParking.Views.Pages
@@ -83,8 +84,8 @@ namespace SmartParking.Views.Pages
             {
                 _editingSpot = spot;
                 // Найти и выбрать зону
-                var zoneItem = CmbZone.ItemsSource?.Cast<dynamic>()
-                    .FirstOrDefault(z => z.Id == spot.ParkingZoneId);
+                var zoneItem = CmbZone.ItemsSource?.Cast<object>()
+                    .FirstOrDefault(z => z.GetType().GetProperty("Id")?.GetValue(z) as int? == spot.ParkingZoneId);
                 if (zoneItem != null)
                     CmbZone.SelectedItem = zoneItem;
                 
@@ -115,8 +116,15 @@ namespace SmartParking.Views.Pages
             }
 
             // Получаем ID зоны
-            var selectedZone = CmbZone.SelectedItem as dynamic;
-            _editingSpot.ParkingZoneId = selectedZone.Id;
+            var selectedZone = CmbZone.SelectedItem as object;
+            if (selectedZone != null)
+            {
+                var prop = selectedZone.GetType().GetProperty("Id");
+                if (prop != null)
+                {
+                    _editingSpot.ParkingZoneId = (int)(prop.GetValue(selectedZone) ?? 0);
+                }
+            }
             _editingSpot.SpotNumber = TxtSpotNumber.Text;
             _editingSpot.SpotType = CmbSpotType.SelectedItem?.ToString() ?? "Обычное";
             

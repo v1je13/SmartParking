@@ -127,7 +127,7 @@ namespace SmartParking.Views.Pages
             {
                 Content = new StackPanel
                 {
-                    Padding = new Avalonia.Thickness(16),
+                    Margin = new Avalonia.Thickness(16),
                     Spacing = 12,
                     Children =
                     {

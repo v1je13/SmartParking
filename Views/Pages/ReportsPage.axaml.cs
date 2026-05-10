@@ -104,9 +104,13 @@ namespace SmartParking.Views.Pages
 
         private void CmbVehicle_SelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
-            if (CmbVehicle.SelectedItem is dynamic item)
+            if (CmbVehicle.SelectedItem is object item)
             {
-                _selectedVehicleId = item.Id;
+                var prop = item.GetType().GetProperty("Id");
+                if (prop != null)
+                {
+                    _selectedVehicleId = (int)(prop.GetValue(item) ?? 0);
+                }
                 LoadReport3();
             }
         }
