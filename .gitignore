@@ -5,37 +5,72 @@ obj/
 *.dll
 *.exe
 *.pdb
-*.nupkg
-*.snupkg
+*.so
+*.dylib
+*.jar
+*.war
+*.class
+*.o
+*.obj
+*.out
 
 # Dependencies
 packages/
 node_modules/
+venv/
+.venv/
+__pycache__/
+*.egg-info/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+coverage/
+htmlcov/
 
 # Logs
 *.log
 
-# Environment
+# Environment specific
 .env
 .env.local
-*.env.*
+.env.*
+.env~*
+.envrc
 
-# Editors
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS
+*~
 .DS_Store
 Thumbs.db
 
 # Testing
-TestResults/
+*.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.nyc_output/
+coverage-final.json
 
-# User-specific files
-*.user
-*.userosscache
-*.suo
-*.csproj.user
+# Distribution / packaging
+.Python
+__pycache__/
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+*.tar.gz
+*.whl
+dist/
+build/
+*.egg-info/
 ```
